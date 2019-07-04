@@ -15,6 +15,7 @@ RUN set -ex; \
     && apt-get install -y -q --no-install-recommends \
         wget bzip2 tzdata rsync htop sysstat strace lsof net-tools gettext-base bash-completion netbase \
         gcc python3-dev zlib1g-dev virtualenv \
+    && rm -rf /etc/service/sshd \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
