@@ -25,6 +25,7 @@ RUN set -ex; true \
     && virtualenv -p python3 --no-setuptools --system-site-packages /venv-py3 \
     && mkdir -p ~/.pip && echo -e "[global]\nindex-url = https://pypi.tuna.tsinghua.edu.cn/simple" > ~/.pip/pip.conf \
     && source /venv-py3/bin/activate \
+    && pip install -U pip setuptools \
     && pip install ipdb six pyrsistent fn toolz functoolsex pykka cython cffi gevent psutil typing retrying simplejson msgpack apscheduler tzlocal pytz dill requests \
         flask_cors flask-restful pyro4 pika pymongo PyMySQL SQLAlchemy redis python-redis-lock \
 
