@@ -22,7 +22,7 @@ RUN set -ex; \
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 RUN set -ex; true \
-    && virtualenv -p python3 /venv-py3 \
+    && virtualenv -p python3 --no-setuptools --system-site-packages /venv-py3 \
     && mkdir -p ~/.pip && echo -e "[global]\nindex-url = https://pypi.tuna.tsinghua.edu.cn/simple" > ~/.pip/pip.conf \
     && source /venv-py3/bin/activate \
     && pip install ipdb six pyrsistent fn toolz functoolsex pykka cython cffi gevent psutil typing retrying simplejson msgpack apscheduler tzlocal pytz dill requests \
