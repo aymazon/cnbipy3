@@ -30,8 +30,9 @@ RUN set -ex; true \
         flask_cors flask-restful pyro4 pika pymongo PyMySQL SQLAlchemy redis python-redis-lock \
 
     && wget -q https://bitbucket.org/pypy/pypy/downloads/pypy3.6-v7.3.0-linux64.tar.bz2 -O /tmp/pypy3.tar.bz2 && tar xjf /tmp/pypy3.tar.bz2 -C /opt/ \
-    && cd /opt/pypy*/bin/ && ./pypy ./virtualenv-pypy /venv-pypy3 \
+    && cd /opt/pypy*/bin/ && virtualenv -p ./pypy3 --no-setuptools /venv-pypy3 \
     && source /venv-pypy3/bin/activate \
+    && pip install -U pip setuptools \
     && pip install ipdb six pyrsistent fn toolz functoolsex pykka cython cffi gevent psutil typing retrying simplejson msgpack apscheduler tzlocal pytz dill requests \
         flask_cors flask-restful pyro4 pika pymongo PyMySQL SQLAlchemy redis python-redis-lock \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.cache/pip/*
