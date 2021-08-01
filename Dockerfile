@@ -14,7 +14,7 @@ RUN set -ex; true \
     && export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
     && apt-get install -y -q --no-install-recommends \
-        wget bzip2 tzdata rsync htop sysstat strace lsof net-tools gettext-base bash-completion netbase dnsutils \
+        wget bzip2 tzdata rsync htop iftop sysstat strace lsof net-tools gettext-base bash-completion netbase dnsutils \
         gcc python3-dev zlib1g-dev virtualenv \
     && virtualenv -p python3 --no-setuptools --system-site-packages /venv-py3 \
     && echo -e "alias activate-py3='source /venv-py3/bin/activate'\n" >> /root/.bashrc \
