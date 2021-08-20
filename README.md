@@ -9,5 +9,5 @@
 
 总共大小 250M 左右, 使用如下命令进行探索, 其余参考 baseimage 官方文档
 ``` bash
-docker run --rm -it --cap-add=SYS_PTRACE aymazon/cnbipy3:1.0 /sbin/my_init --skip-startup-files --skip-runit --quiet -- bash -l
+docker run --rm -it --cap-add=SYS_PTRACE aymazon/cnbipy3:2.0 /sbin/my_init --skip-startup-files --skip-runit --quiet -- bash -l
 ```
