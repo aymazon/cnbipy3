@@ -15,14 +15,27 @@ RUN set -ex; true \
     && apt-get update \
     && apt-get install -y -q --no-install-recommends \
         wget bzip2 tzdata rsync htop iftop sysstat strace lsof net-tools gettext-base bash-completion netbase dnsutils \
-        gcc python3-dev zlib1g-dev virtualenv \
-    && virtualenv -p python3 --no-setuptools --system-site-packages /venv-py3 \
-    && echo -e "alias activate-py3='source /venv-py3/bin/activate'\n" >> /root/.bashrc \
-    && mkdir -p ~/.pip && echo -e "[global]\nindex-url = https://mirrors.aliyun.com/pypi/simple" > ~/.pip/pip.conf \
-    && source /venv-py3/bin/activate \
-    && pip install -U pip setuptools \
-    && pip install six pyrsistent fn toolz cytoolz functoolsex pysnooper pprofile \
-    && apt autoremove -y gcc python3-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.cache/pip/*
 
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+RUN set -ex; true \
+    && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update \
+    && apt-get install -y -q --no-install-recommends \
+        gcc python3-dev zlib1g-dev virtualenv \
+    && echo -e "alias activate-py3='source /venv-py3/bin/activate'" >> /root/.bashrc \
+    && virtualenv -p python3 --no-setuptools --system-site-packages /venv-py3 \
+    && mkdir -p ~/.pip && echo -e "[global]\nindex-url = https://mirrors.aliyun.com/pypi/simple" > ~/.pip/pip.conf \
+    && source /venv-py3/bin/activate \
+    && pip install -U pip setuptools \
+    && pip install six pyrsistent fn toolz cytoolz functoolsex pysnooper pprofile ipython ipdb debugpy \
+    && echo -e "alias activate-pypy3='source /venv-pypy3/bin/activate'" >> /root/.bashrc \
+    && wget -q https://downloads.python.org/pypy/pypy3.7-v7.3.5-linux64.tar.bz2 -O /tmp/pypy3.tar.bz2 && tar xjf /tmp/pypy3.tar.bz2 -C /opt/ \
+    && cd /opt/pypy*/bin/ && virtualenv -p ./pypy3 --no-setuptools /venv-pypy3 \
+    && source /venv-pypy3/bin/activate \
+    && curl -sS https://bootstrap.pypa.io/get-pip.py | python3 \
+    && pip install -U setuptools \
+    && pip install six pyrsistent fn toolz functoolsex pysnooper pprofile ipython ipdb debugpy \
+    && apt autoremove -y gcc python3-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.cache/pip/*
