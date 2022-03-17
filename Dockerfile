@@ -1,4 +1,4 @@
-FROM phusion/baseimage:focal-1.0.0
+FROM phusion/baseimage:focal-1.2.0
 
 CMD ["/sbin/my_init"]
 
@@ -14,7 +14,7 @@ RUN set -ex; true \
     && export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
     && apt-get install -y -q --no-install-recommends \
-        wget bzip2 tzdata rsync htop iftop sysstat strace lsof net-tools gettext-base bash-completion netbase dnsutils \
+        wget bzip2 tzdata rsync htop iotop iftop sysstat strace lsof net-tools gettext-base bash-completion netbase dnsutils \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.cache/pip/*
 
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
@@ -31,7 +31,7 @@ RUN set -ex; true \
     && pip install -U pip setuptools \
     && pip install six pyrsistent fn toolz cytoolz functoolsex pysnooper pprofile ipython ipdb debugpy \
     && echo -e "alias activate-pypy3='source /venv-pypy3/bin/activate'" >> /root/.bashrc \
-    && wget -q https://downloads.python.org/pypy/pypy3.7-v7.3.5-linux64.tar.bz2 -O /tmp/pypy3.tar.bz2 && tar xjf /tmp/pypy3.tar.bz2 -C /opt/ \
+    && wget -q https://downloads.python.org/pypy/pypy3.8-v7.3.8-linux64.tar.bz2 -O /tmp/pypy3.tar.bz2 && tar xjf /tmp/pypy3.tar.bz2 -C /opt/ \
     && cd /opt/pypy*/bin/ && virtualenv -p ./pypy3 --no-setuptools /venv-pypy3 \
     && source /venv-pypy3/bin/activate \
     && curl -sS https://bootstrap.pypa.io/get-pip.py | python3 \
